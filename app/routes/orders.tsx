@@ -14,7 +14,7 @@ const Orders = () => {
     })()
   }, [])
   return (
-    <div className="max-w-6xl mx-auto mt-6 bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+    <div className="max-w-3xl container mx-auto mt-6 bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
       <table className="w-full table-fixed text-sm">
         <thead className="bg-gray-50 border-b border-b-gray-200">
           <tr>
