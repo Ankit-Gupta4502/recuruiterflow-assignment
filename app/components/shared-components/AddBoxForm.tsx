@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import Input from '../ui/Input'
 import { z } from 'zod'
 import { useForm, type SubmitHandler } from "react-hook-form"
@@ -18,17 +18,12 @@ const AddBoxForm = () => {
     const { register, formState: { errors }, handleSubmit } = useForm({
         resolver: zodResolver(schema)
     })
-    const { current: { getShippingOrders } } = useRef(ShippingOrderServices)
-   
+    const { current: { addShippingOrder } } = useRef(ShippingOrderServices)
+
     const onSubmit: SubmitHandler<formSchema> = (data) => {
-        
+
     }
-    useEffect(()=>{
-        getShippingOrders()
-        .then(res=>{
-            console.log(res,"ress")
-        })
-    },[])
+
     return (
         <div className='  w-full max-w-lg bg-white mx-auto  border-gray-100 rounded-md px-4 py-4  border shadow-lg ' >
             <h4 className=' text-xl font-semibold ' >Add New Shipping Box</h4>
@@ -40,7 +35,7 @@ const AddBoxForm = () => {
 
                 <Input isError={!!errors.weight} errorMessage={errors?.weight?.message} inputProps={{
                     placeholder: "Enter weight in KG",
-                    type:"number",
+                    type: "number",
                     ...register("weight")
                 }} label="Weight" />
 

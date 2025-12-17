@@ -1,8 +1,19 @@
+import { supabase } from "~/supabase"
+import { type Response } from "~/shared-types/ApiResponse"
 
+export interface Order {
+    id: string
+    receiver: string
+    weight_kg: number
+    color: string | null
+    country: string
+    shipping_cost: number
+    currency: string
+    created_at: string
+}
 
 class OrderService {
     private static serviceInstance: OrderService
-    private static orders: [] = []
 
     getInstance() {
         if (OrderService.serviceInstance) {
@@ -15,8 +26,8 @@ class OrderService {
 
     async getShippingOrders() {
         try {
-            
-            return { error: null, data: OrderService.orders }
+            const data = await supabase.from("orders").select() as Response<Order[]>
+            return { error: null, data }
         } catch (error) {
             return { error, data: null }
         }

@@ -11,6 +11,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import ShippingContext from "./context/ShippingContext";
 import RootLayout from "./components/layout/Layout";
+import "./supabase"
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
