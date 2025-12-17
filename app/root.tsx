@@ -12,6 +12,7 @@ import "./app.css";
 import ShippingContext from "./context/ShippingContext";
 import RootLayout from "./components/layout/Layout";
 import "./supabase"
+import { Toaster } from "sonner";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -37,6 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <ShippingContext>
+          <Toaster/>
           <RootLayout>
             {children}
           </RootLayout>

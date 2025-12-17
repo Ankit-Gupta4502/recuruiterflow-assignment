@@ -1,46 +1,77 @@
-import React, { useEffect, useRef } from 'react'
-import ShippingOrderServices from '~/services/ShippingOrderServices'
+import React, { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
+import ShippingOrderServices, {
+  type Order,
+} from "~/services/ShippingOrderServices";
+import Table, { type Column } from "~/components/ui/Table";
+
+const columns: Column<Order>[] = [
+  {
+    key: "receiver",
+    label: "Receiver",
+    accessor: (order) => order.receiver,
+  },
+  {
+    key: "country",
+    label: "Country",
+    accessor: (order) => order.country,
+  },
+  {
+    key: "weight_kg",
+    label: "Weight (kg)",
+    accessor: (order) => order.weight_kg,
+  },
+  {
+    key: "color",
+    label: "Color",
+    accessor: (order) =>
+      order.color ? (
+        <div
+          className=" size-6 rounded-full"
+          style={{ background: order.color }}
+        />
+      ) : (
+        "-"
+      ),
+  },
+  {
+    key: "shipping_cost",
+    label: "Shipping Cost",
+    accessor: (order) => `${order.currency} ${order.shipping_cost}`,
+  },
+  {
+    key: "created_at",
+    label: "Created At",
+    accessor: (order) => new Date(order.created_at).toLocaleDateString(),
+  },
+];
 
 const Orders = () => {
-  const { current: { getShippingOrders } } = useRef(ShippingOrderServices)
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const {
+    current: { getShippingOrders },
+  } = useRef(ShippingOrderServices);
   useEffect(() => {
     (async () => {
-      const { data, error } = await getShippingOrders()
+      const { data, error } = await getShippingOrders();
       if (error) {
+        toast.error("Oops! Something went wrong");
         console.error(error, "error in getting orders");
       } else {
-        console.log(data, "dataaaa")
+        setOrders(data?.data || []);
       }
-    })()
-  }, [])
+      setIsLoading(false);
+    })();
+  }, []);
   return (
-    <div className="max-w-3xl container mx-auto mt-6 bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
-      <table className="w-full table-fixed text-sm">
-        <thead className="bg-gray-50 border-b border-b-gray-200">
-          <tr>
-            <th className="px-4 py-3 text-left font-medium text-gray-600">
-              Name
-            </th>
-            <th className="px-4 py-3 text-left font-medium text-gray-600">
-              Orders
-            </th>
-          </tr>
-        </thead>
+    <Table
+      data={orders}
+      columns={columns}
+      isLoading={isLoading}
+      getRowId={(order) => order.id}
+    />
+  );
+};
 
-        <tbody className="divide-y  divide-gray-200  ">
-          <tr className="hover:bg-gray-50 transition">
-            <td className="px-4 py-3 text-gray-700">
-              fii
-            </td>
-            <td className="px-4 py-3 text-gray-700">
-              figidg
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-  )
-}
-
-export default Orders
+export default Orders;

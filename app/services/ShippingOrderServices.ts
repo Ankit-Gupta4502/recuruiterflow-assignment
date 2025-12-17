@@ -1,49 +1,56 @@
-import { supabase } from "~/supabase"
-import { type Response } from "~/shared-types/ApiResponse"
+import { supabase } from "~/supabase";
+import { type Response } from "~/shared-types/ApiResponse";
 
 export interface Order {
-    id: string
-    receiver: string
-    weight_kg: number
-    color: string | null
-    country: string
-    shipping_cost: number
-    currency: string
-    created_at: string
+  id: string;
+  receiver: string;
+  weight_kg: number;
+  color: string | null;
+  country: string;
+  shipping_cost: number;
+  currency: string;
+  created_at: string;
 }
 
 class OrderService {
-    private static serviceInstance: OrderService
+  private static serviceInstance: OrderService;
 
-    getInstance() {
-        if (OrderService.serviceInstance) {
-            return OrderService.serviceInstance
-        } else {
-            OrderService.serviceInstance = new OrderService()
-            return OrderService.serviceInstance
-        }
+  getInstance() {
+    if (OrderService.serviceInstance) {
+      return OrderService.serviceInstance;
+    } else {
+      OrderService.serviceInstance = new OrderService();
+      return OrderService.serviceInstance;
     }
+  }
 
-    async getShippingOrders() {
-        try {
-            const data = await supabase.from("orders").select() as Response<Order[]>
-            return { error: null, data }
-        } catch (error) {
-            return { error, data: null }
-        }
-
+  async getShippingOrders() {
+    try {
+      const data = (await supabase.from("orders").select()) as Response<
+        Order[]
+      >;
+      return { error: null, data };
+    } catch (error) {
+      return { error, data: null };
     }
+  }
 
-
-    async addShippingOrder() {
-        try {
-
-        } catch (error) {
-            return { error, data: null }
-        }
+  async addShippingOrder(
+    params: Pick<
+      Order,
+      "receiver" | "weight_kg" | "color" | "country" | "shipping_cost"
+    >
+  ) {
+    try {
+      const resp = await supabase.from("orders").insert({
+        ...params,
+        currency: "INR",
+      });
+      return { error: null, data: resp };
+    } catch (error) {
+      return { error, data: null };
     }
-
-
+  }
 }
 
-export default new OrderService().getInstance()
+export default new OrderService().getInstance();
