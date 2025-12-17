@@ -94,13 +94,12 @@ const AddBoxForm = () => {
 
         <Input
           inputProps={{
-            placeholder: "Enter weight in KG",
             type: "color",
             defaultValue: "#F2F2F2",
             className: "max-w-[50px]  py-0 px-0 border-0 [block-size:32px]",
             ...register("color"),
           }}
-          label="Choose Box Color *"
+          label="Choose Box Color"
         />
 
         <Select
