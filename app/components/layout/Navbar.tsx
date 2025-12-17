@@ -6,7 +6,7 @@ const Navbar = () => {
     return (
         <div className="bg-gray-50 px-1 md:px-0 ">
             <div className=' py-6 flex items-center justify-between container mx-auto' >
-                <h1 className=' font-medium lg:text-3xl text-sm' >Shipping Calculator</h1>
+                <h1 className=' font-medium sm:text-3xl text-md' >Shipping Calculator</h1>
 
                 <div className="flex items-center space-x-1 md:space-x-4">
                     <Link to="/" className={classNameMerger(' rounded-md text-xs  md:text-sm  px-2.5 md:px-4 py-2', pathname === "/" ? "bg-blue-950  text-white" : " text-dark  ")} >
