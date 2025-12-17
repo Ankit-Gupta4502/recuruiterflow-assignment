@@ -65,12 +65,14 @@ const Orders = () => {
     })();
   }, []);
   return (
-    <Table
-      data={orders}
-      columns={columns}
-      isLoading={isLoading}
-      getRowId={(order) => order.id}
-    />
+    <div className="px-2 mt-6 md:px-0 container mx-auto">
+      <Table
+        data={orders}
+        columns={columns}
+        isLoading={isLoading}
+        getRowId={(order) => order.id}
+      />
+    </div>
   );
 };
 

@@ -60,13 +60,13 @@ function Table<T>({
   return (
     <div
       className={classNameMerger(
-        "max-w-6xl container mx-auto mt-6 bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden",
+        "  bg-white border border-gray-200 rounded-lg shadow-sm overflow-x-auto",
         containerClassName
       )}
     >
       <table
         className={classNameMerger(
-          "w-full table-fixed text-sm",
+          "w-full table-auto text-sm ",
           tableClassName
         )}
       >
