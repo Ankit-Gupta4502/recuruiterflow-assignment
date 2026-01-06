@@ -9,7 +9,6 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import ShippingContext from "./context/ShippingContext";
 import RootLayout from "./components/layout/Layout";
 import "./supabase"
 import { Toaster } from "sonner";
@@ -37,12 +36,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <ShippingContext>
           <Toaster/>
           <RootLayout>
             {children}
           </RootLayout>
-        </ShippingContext>
         <ScrollRestoration />
         <Scripts />
       </body>
